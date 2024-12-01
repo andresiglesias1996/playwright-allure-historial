@@ -1,0 +1,2 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Sun Dec 01 15:49:08 GMT 2024","Sun Dec 01 15:49:08 GMT 2024","664","","tests/example.spec.ts","","","","example test",""
