@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-
+  workflow_dispatch:  #Ejecutar la acción manualmente desde GitHub
 jobs:
   test-and-deploy:
     runs-on: ubuntu-latest
