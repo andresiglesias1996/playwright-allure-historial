@@ -1,0 +1,84 @@
+name: Playwright Tests with Allure Report
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Configurar el repositorio
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # 2. Configurar Node.js
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    # 3. Instalar dependencias
+    - name: Install dependencies
+      run: npm install
+
+    # 4. Ejecutar las pruebas con Playwright
+    - name: Run Playwright tests
+      run: npx playwright test
+
+    # 5. Instalar Allure para generar el reporte
+    - name: Install Allure
+      run: |
+        npm install -g allure-commandline
+        allure --version
+
+    # 6. Generar el reporte de Allure
+    - name: Generate Allure report
+      run: allure generate allure-results --clean -o allure-report
+
+    # 7. Guardar el reporte en un directorio con fecha/hora
+    - name: Save report with timestamp
+      run: |
+        TIMESTAMP=$(date +'%Y%m%d-%H%M%S')
+        mkdir -p allure-history/$TIMESTAMP
+        mv allure-report/* allure-history/$TIMESTAMP
+
+    # 8. Deploy a GitHub Pages
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./allure-history
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
